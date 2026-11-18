@@ -12,7 +12,7 @@
    große Kacheln 28px, innere Flächen 18px, Icon-Kacheln 10px.
    ===================================================================== */
 :root{
-  --bg:#fbfbfd; --bg2:#f2f2f5; --bg3:#e8e8ed; --raise:#ffffff;
+  --bg:#fbfbfd; --bg2:#e9e3da; --bg3:#e8e8ed; --raise:#ffffff;
   --text:#1d1d1f; --text2:#505055; --text3:#59595e;
   --hair:rgba(0,0,0,.12); --hair2:rgba(0,0,0,.07);
   --accent:#a3192d; --accent-hover:#8a1426; --accent-text:#a3192d; --on-accent:#fbfbfd;
@@ -462,9 +462,6 @@ a.ext::after{content:"";display:inline-block;width:.62em;height:.62em;margin-lef
 }
 
 /* ---------- Hintergrund-Karten (Ambient Watermarks mit weißen Straßen) ---------- */
-.sec-bg-map{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:0.12;-webkit-mask:radial-gradient(circle at 80% 50%,#000 20%,transparent 75%);mask:radial-gradient(circle at 80% 50%,#000 20%,transparent 75%)}
-.sec-bg-map svg{position:absolute;right:-5%;top:-15%;width:min(1300px,95vw);height:auto;transform:rotate(-3deg);--map-lop:0}
-.sec-bg-map .m-hs{stroke:var(--accent);opacity:.5;stroke-width:3.5}
 .sec .wrap{position:relative;z-index:1}
 
 .feat{position:relative;overflow:hidden}
@@ -843,10 +840,6 @@ html.rv-on .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html.rv-on .rv{opacity:1!important;transform:none!important}}
 @media print{.gnav,.lnav,footer.site,.pager,.quick{display:none!important}.hero{height:auto;min-height:0}}
 /* Hero Sitzungs-Pille */
-.hero-session{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.24);color:#fbfbfd;font-size:13.5px;width:fit-content;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-.hero-sess-txt b{font-weight:650;color:#ffffff}
-.hero-sess-link{display:inline-flex;align-items:center;gap:4px;font-weight:600;color:#ffffff;text-decoration:none;padding-left:8px;border-left:1px solid rgba(255,255,255,.25)}
-.hero-sess-link:hover{text-decoration:underline}
 
 /* 4 Einstiege Grid */
 .entries4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -894,3 +887,29 @@ html.rv-on .rv.in{opacity:1;transform:none}
 /* Clean list helper */
 .clean-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .clean-list li{margin:0;font-size:14.5px;line-height:1.45;color:var(--text)}
+
+
+/* Datum der nächsten Sitzung als Hero-Block */
+.hero-date{display:flex;align-items:center;gap:20px;width:fit-content;margin-bottom:40px;color:#fbfbfd;text-decoration:none;text-shadow:0 1px 18px rgba(0,0,0,.55)}
+.hero-date:hover{text-decoration:none}
+.hero-date:hover .hd-meta b{text-decoration:underline}
+.hd-num{font-size:clamp(72px,10vw,120px);line-height:.85;font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums;border-right:3px solid var(--accent);padding-right:20px}
+.hd-meta{display:flex;flex-direction:column;gap:2px;font-size:clamp(15px,1.5vw,18px)}
+.hd-meta b{font-size:clamp(20px,2.2vw,28px);font-weight:700;letter-spacing:-.02em}
+.hero-date .pulse-dot{align-self:flex-start;margin-top:8px}
+
+/* Ich bin … */
+.iam{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.iam a{display:flex;flex-direction:column;gap:6px;height:100%;padding:22px;border-radius:var(--r-card);background:var(--raise);border:1px solid var(--hair2);color:var(--text);text-decoration:none;transition:border-color .2s}
+.iam a:hover{border-color:var(--accent);text-decoration:none}
+.iam b{font-size:24px;letter-spacing:-.03em}
+.iam span{color:var(--text2);font-size:15px;line-height:1.4}
+.iam .i{margin-top:auto;color:var(--accent-text)}
+@media (max-width:900px){.iam{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.iam{grid-template-columns:1fr}}
+
+/* Startseiten-Karten: flach, ein Radius, kein Glas */
+:root{--r-card:16px}
+.tile,.why-card,.why-card-hero,.news-card-3,.session,.bbox{background:var(--raise);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;border:1px solid var(--hair2);border-radius:var(--r-card)}
+.tile:hover,.why-card:hover,.news-card-3:hover{transform:none;box-shadow:none;border-color:var(--accent)}
+.bbox{background:var(--bg2);border:0}

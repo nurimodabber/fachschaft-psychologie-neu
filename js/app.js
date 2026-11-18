@@ -19,17 +19,18 @@ const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').re
 function home(){
   const s=nextSession(), p0=POSTS[0], d0=new Date(p0.d+'T12:00:00');
   const liveDot = s.live ? '<span class="pulse-dot"></span>' : '';
+  const sd=new Date(s.iso);
   const heroSession = `
-    <div class="hero-session">
-      ${liveDot}
-      <span class="hero-sess-txt">Nächste Sitzung: <b>${s.dateStr}</b></span>
-      <a class="hero-sess-link" href="#/fachschaft/kontakt">Details${ic('chevr')}</a>
-    </div>`;
+    <a class="hero-date" href="#/fachschaft/kontakt">
+      ${liveDot}<span class="hd-num">${s.day}</span>
+      <span class="hd-meta"><b>${sd.toLocaleDateString('de-DE',{weekday:'long'})}, ${sd.toLocaleDateString('de-DE',{month:'long'})}</b><span>Nächste Sitzung, 18–20 Uhr</span><span>Komm vorbei, ohne Anmeldung.</span></span>
+    </a>`;
 
   return `
 <section class="hero" aria-labelledby="hero-h">
  ${pic('hero','',true)}
  <div class="in">
+  ${heroSession}
   <p class="eb">Universität Heidelberg</p>
   <h1 id="hero-h" tabindex="-1">Fachschaft<br>Psychologie</h1>
   <p class="lead">Die studentische Vertretung am Psychologischen Institut der Universität Heidelberg.</p>
@@ -37,14 +38,12 @@ function home(){
    <a class="btn btn-primary" href="#/fachschaft"><span>Über uns</span></a>
    <a class="hero-btn-secondary" href="#/studium"><span>Infos zum Studium</span>${ic('chevr')}</a>
   </div>
-  ${heroSession}
  </div>
  <p class="credit">Foto: Samuel Scherer, <a class="noext" href="${CCBYSA}">CC BY-SA 4.0</a></p>
 </section>
 
 <section class="sec sec-intro" aria-labelledby="intro-h">
  <h2 class="sr" id="intro-h">Über die Fachschaft</h2>
- <div class="sec-bg-map" aria-hidden="true">${mapSvg('mapbg-ambient')}</div>
  <div class="wrap">
   <div class="intro rv">
    <p class="statement">Wir vertreten die Psychologiestudierenden in Heidelberg, organisieren Veranstaltungen und helfen bei Fragen zum Studium.</p>
@@ -55,35 +54,13 @@ function home(){
 
 <section class="sec sec-entries" aria-labelledby="ex-h">
  <div class="wrap">
-  <div class="shead rv"><div><h2 class="sh2" id="ex-h">Was interessiert dich gerade?</h2></div></div>
-  <div class="bento3">
-   <article class="tile t-study rv">
-    <figure><img src="assets/images/fachschaft/psychologisches-institut.webp" alt="Psychologisches Institut in der Hauptstraße 47" loading="lazy"></figure><span class="cap">Psychologisches Institut</span>
-    <div class="tb">
-     <h3><a href="#/studium">Infos zum Studium</a></h3>
-     <p>Bewerbung, Studienaufbau, Praktika und Auslandssemester. Dazu Antworten auf die Fragen, die Erstis am häufigsten stellen.</p>
-     <div class="subl"><a href="#/studium/bachelor">Bachelor${ic('chevr')}</a><a href="#/studium/master">Master${ic('chevr')}</a><a href="#/studium/approbation">Approbation${ic('chevr')}</a><a href="#/studium/faq">FAQ${ic('chevr')}</a></div>
-    </div>
-   </article>
-
-   <article class="tile t-events rv" style="--i:1">
-    <figure><img src="assets/images/fachschaft/silent-disco-2024.jpg" alt="Silent Disco im Institutsinnenhof" loading="lazy"></figure><span class="cap">Fachschaft Psychologie</span>
-    <div class="tb">
-     <h3><a href="#/leben">Veranstaltungen</a></h3>
-     <p>Psychoparty, Ersti-Wochenende, PsychoKino und Institutsgrillen.</p>
-     <div class="subl"><a href="#/leben/psychoparty">Psychoparty${ic('chevr')}</a><a href="#/leben/ersti-we">Ersti-Wochenende${ic('chevr')}</a></div>
-    </div>
-   </article>
-
-   <article class="tile t-fs rv" style="--i:2">
-    <figure><img src="assets/images/fachschaft/fs-team.jpg" alt="Gruppe der Fachschaft Psychologie beim Klausurwochenende" loading="lazy"></figure><span class="cap">Fachschaft Psychologie</span>
-    <div class="tb">
-     <h3><a href="#/fachschaft">Die Fachschaft</a></h3>
-     <p>Wer wir sind, wie du mitmachst und wo wir dich vertreten.</p>
-     <div class="subl"><a href="#/fachschaft/aktive">Aktive Fachschaft${ic('chevr')}</a><a href="#/hopo">Hochschulpolitik${ic('chevr')}</a></div>
-    </div>
-   </article>
-  </div>
+  <div class="shead rv"><div><h2 class="sh2" id="ex-h">Ich bin …</h2></div></div>
+  <ul class="iam">
+   <li class="rv"><a href="#/studium/bachelor/eks"><b>Ersti</b><span>Einführungswoche, Start und häufige Fragen</span>${ic('chevr')}</a></li>
+   <li class="rv" style="--i:1"><a href="#/leben/wechslertreffen"><b>Wechsler:in</b><span>Wechslertreffen und Anrechnung</span>${ic('chevr')}</a></li>
+   <li class="rv" style="--i:2"><a href="#/studium/master"><b>im Master</b><span>M.Sc., Schwerpunkte und Bewerbung</span>${ic('chevr')}</a></li>
+   <li class="rv" style="--i:3"><a href="#/fachschaft/aktive"><b>Aktiv</b><span>Mitmachen in Fachschaft und Gremien</span>${ic('chevr')}</a></li>
+  </ul>
  </div>
 </section>
 
@@ -133,7 +110,7 @@ function home(){
 
 <section class="sec sec-news" aria-labelledby="news-h">
  <div class="wrap">
-  <div class="shead rv"><h2 class="sh2" id="news-h">Was gibt’s Neues?</h2><a class="tlink" href="#/aktuelles">Alle Beiträge${ic('chevr')}</a></div>
+  <div class="shead rv"><h2 class="sh2" id="news-h">${newsIsStale()?'Archiv':'Was gibt’s Neues?'}</h2><a class="tlink" href="#/aktuelles">Alle Beiträge${ic('chevr')}</a></div>
   ${newsFreshnessHint()}
   <div class="news-grid-3">
    ${POSTS.slice(0,3).map((p,idx)=>{

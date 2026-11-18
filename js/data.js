@@ -76,11 +76,12 @@ function nextSession(){
   return {live,wd,day:d.getDate(),iso,dateStr,note,inLecture,holiday};
 }
 
+function newsIsStale(){
+  return !POSTS.length||(Date.now()-new Date(POSTS[0].d+'T12:00:00').getTime())/864e5>180;
+}
+
 function newsFreshnessHint(){
-  if(!POSTS.length) return '';
-  const latest=new Date(POSTS[0].d+'T12:00:00');
-  const diffDays=(Date.now()-latest.getTime())/(1000*60*60*24);
-  if(diffDays>180){
+  if(newsIsStale()){
     return `<div class="news-freshness" role="note"><span class="nf-ico" aria-hidden="true">${ic('insta')}</span><span>Aktuelle Ankündigungen und kurzfristige Updates teilen wir auf <a class="noext" href="${IG}" target="_blank" rel="noopener">unserem Instagram-Kanal @psyheidelberg</a>.</span></div>`;
   }
   return '';
@@ -890,7 +891,7 @@ ${rows([
 if (typeof window !== "undefined") {
   Object.assign(window, {
     WP_BASE, P, OLD, U, PI, UNI, MAIL, MAIL_FIN, BBB, CAL, ICS, IG, FB, PSYTREFF, DSGVO,
-    SEMESTER_CONFIG, HOLIDAYS_BW, isLecturePeriod, isHoliday, formatDateLong, nextSession, newsFreshnessHint,
+    SEMESTER_CONFIG, HOLIDAYS_BW, isLecturePeriod, isHoliday, formatDateLong, nextSession, newsFreshnessHint, newsIsStale,
     PHOTOS, HERO_KEY, HD_IMG, MAP_META, IMG, SECTION_IMG, TREE, POSTS, ISSUES,
     OLDMAG, ROOMS, PAGES, ic, L, X, M, copyBtn, facts, callout, initials, people,
     rows, photo, fmtD, terms, sessionBox, pic, credit, mapSvg,
