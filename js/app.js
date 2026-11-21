@@ -1210,7 +1210,8 @@ function applyPref(p){
 
 
 /* ============ Start ============ */
-function fitNav(){const g=$('#gnav'),inn=$('.in',g);g.classList.remove('compact');if(inn.scrollWidth>inn.clientWidth+1)g.classList.add('compact');}
+// Die zentrierte Liste läuft beidseitig aus der Nav heraus, aber oft noch innerhalb von .in; nur ul gegen nav merkt das.
+function fitNav(){const g=$('#gnav'),nav=$('nav',g);g.classList.remove('compact');if($('ul',nav).scrollWidth>nav.clientWidth+1)g.classList.add('compact');}
 const RV=('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches)?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');RV.unobserve(en.target);}}),{rootMargin:'0px 0px 18% 0px'}):null;
 if(RV) root.classList.add('rv-on');
 buildNav(); footer(); $('#menuTheme').innerHTML=themeSeg(); decorateLinks($('#footer'));
