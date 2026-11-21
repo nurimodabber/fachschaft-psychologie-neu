@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/build.mjs",
     "preview": "vite preview",
     "serve": "python3 -m http.server 3000",
     "check-links": "node scripts/check-links.mjs",
